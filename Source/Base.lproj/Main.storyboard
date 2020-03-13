@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <items>
+                            <menuItem title="OSX_GrayScott" id="1Xt-HY-uBw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="OSX_GrayScott" systemMenu="apple" id="uQy-DD-JDr">
+                                    <items>
+                                        <menuItem title="Quit OSX_GrayScott" keyEquivalent="q" id="4sb-4s-VLi">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="OSX_GrayScott" customModuleProvider="target"/>
+                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2682" y="-850"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="R2V-B0-nI4">
+            <objects>
+                <windowController storyboardIdentifier="Main" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="GrayScott" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="430" height="97"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                    </connections>
+                </windowController>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2515" y="-683"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hIz-AP-VOD">
+            <objects>
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="OSX_GrayScott" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl" customClass="BaseNSView" customModule="OSX_GrayScott" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="745" height="404"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMF-RM-Kbh" customClass="MetalTextureView" customModule="OSX_GrayScott" customModuleProvider="target">
+                                <rect key="frame" x="20" y="130" width="406" height="151"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPd-XS-EMM">
+                                <rect key="frame" x="18" y="11" width="114" height="19"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="aGb-pI-7W1"/>
+                                <connections>
+                                    <action selector="sliderChanged:" target="XfG-lQ-9wD" id="wny-qh-E2q"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="APs-NE-8zU">
+                                <rect key="frame" x="149" y="11" width="114" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="bRp-IF-eEJ"/>
+                                </constraints>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="Giz-Cn-QUn"/>
+                                <connections>
+                                    <action selector="sliderChanged:" target="XfG-lQ-9wD" id="jBv-zX-SNI"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5uY-Qh-Ttk">
+                                <rect key="frame" x="283" y="11" width="114" height="19"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="R88-66-V71"/>
+                                <connections>
+                                    <action selector="sliderChanged:" target="XfG-lQ-9wD" id="i3E-qb-vyg"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hfc-pY-2Wl">
+                                <rect key="frame" x="423" y="11" width="114" height="19"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="Ne2-cb-f88"/>
+                                <connections>
+                                    <action selector="sliderChanged:" target="XfG-lQ-9wD" id="428-w8-ad3"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Toj-TY-aZw">
+                                <rect key="frame" x="562" y="11" width="114" height="19"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="Ytm-8X-Kib"/>
+                                <connections>
+                                    <action selector="sliderChanged:" target="XfG-lQ-9wD" id="gQJ-AP-pNF"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uiL-6y-GmW">
+                                <rect key="frame" x="20" y="36" width="96" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="92" id="ycr-kP-NN4"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="(1,2) Feed Rate" id="o2b-gj-WwR">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nwx-89-Xls">
+                                <rect key="frame" x="149" y="36" width="86" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="82" id="ujq-JH-rjb"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="(3,4) Kill Rate" id="uql-uv-f96">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sk8-vY-5pq">
+                                <rect key="frame" x="281" y="36" width="103" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="99" id="ZOm-pf-JWF"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="(5,6) Diffusion A" id="tCd-yb-LSy">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jZR-vX-q0b">
+                                <rect key="frame" x="423" y="36" width="105" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="101" id="T11-X2-jzr"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="(7,8) Diffusion B " id="m0U-aP-x4f">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cx0-Yu-UXN">
+                                <rect key="frame" x="562" y="36" width="185" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="(9,0) Scale          (R) Reset" id="mWd-QT-8H7">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Nwx-89-Xls" firstAttribute="baseline" secondItem="Sk8-vY-5pq" secondAttribute="baseline" id="4b3-ZO-xZG"/>
+                            <constraint firstItem="uiL-6y-GmW" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="5Wm-Qo-cW3"/>
+                            <constraint firstItem="jZR-vX-q0b" firstAttribute="leading" secondItem="Sk8-vY-5pq" secondAttribute="trailing" constant="43" id="8vm-4c-HWq"/>
+                            <constraint firstItem="Hfc-pY-2Wl" firstAttribute="baseline" secondItem="Toj-TY-aZw" secondAttribute="baseline" id="AjI-fX-0It"/>
+                            <constraint firstItem="Toj-TY-aZw" firstAttribute="leading" secondItem="Hfc-pY-2Wl" secondAttribute="trailing" constant="29" id="B8a-Jn-Ph4"/>
+                            <constraint firstItem="cPd-XS-EMM" firstAttribute="top" secondItem="uiL-6y-GmW" secondAttribute="bottom" constant="8" symbolic="YES" id="D5k-Ub-eIw"/>
+                            <constraint firstItem="Cx0-Yu-UXN" firstAttribute="leading" secondItem="jZR-vX-q0b" secondAttribute="trailing" constant="38" id="JJe-FE-3cC"/>
+                            <constraint firstItem="cPd-XS-EMM" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="KN9-EE-j3T"/>
+                            <constraint firstItem="5uY-Qh-Ttk" firstAttribute="leading" secondItem="APs-NE-8zU" secondAttribute="trailing" constant="24" id="LUv-Fl-zNh"/>
+                            <constraint firstItem="APs-NE-8zU" firstAttribute="baseline" secondItem="5uY-Qh-Ttk" secondAttribute="baseline" id="Md4-kK-BkM"/>
+                            <constraint firstAttribute="bottom" secondItem="cPd-XS-EMM" secondAttribute="bottom" constant="13" id="O0o-zH-pPr"/>
+                            <constraint firstItem="APs-NE-8zU" firstAttribute="leading" secondItem="cPd-XS-EMM" secondAttribute="trailing" constant="21" id="Oc5-4I-SeP"/>
+                            <constraint firstItem="Hfc-pY-2Wl" firstAttribute="leading" secondItem="5uY-Qh-Ttk" secondAttribute="trailing" constant="30" id="OzQ-ZL-cy2"/>
+                            <constraint firstItem="jZR-vX-q0b" firstAttribute="baseline" secondItem="Cx0-Yu-UXN" secondAttribute="baseline" id="PAj-6H-Qso"/>
+                            <constraint firstItem="Cx0-Yu-UXN" firstAttribute="leading" secondItem="Toj-TY-aZw" secondAttribute="leading" id="Rc9-MB-LCO"/>
+                            <constraint firstItem="uiL-6y-GmW" firstAttribute="baseline" secondItem="Nwx-89-Xls" secondAttribute="baseline" id="Xed-e4-RlG"/>
+                            <constraint firstAttribute="trailing" secondItem="Cx0-Yu-UXN" secondAttribute="trailing" id="YEF-g9-47q"/>
+                            <constraint firstItem="Sk8-vY-5pq" firstAttribute="baseline" secondItem="jZR-vX-q0b" secondAttribute="baseline" id="Z5N-ZS-Tai"/>
+                            <constraint firstItem="Sk8-vY-5pq" firstAttribute="leading" secondItem="Nwx-89-Xls" secondAttribute="trailing" constant="50" id="bOx-lR-u2H"/>
+                            <constraint firstItem="Nwx-89-Xls" firstAttribute="leading" secondItem="APs-NE-8zU" secondAttribute="leading" id="eL1-sq-N7r"/>
+                            <constraint firstAttribute="trailing" secondItem="Toj-TY-aZw" secondAttribute="trailing" constant="71" id="evn-Q3-TjU"/>
+                            <constraint firstItem="jZR-vX-q0b" firstAttribute="leading" secondItem="Hfc-pY-2Wl" secondAttribute="leading" id="h9Z-j3-r5O"/>
+                            <constraint firstItem="cPd-XS-EMM" firstAttribute="baseline" secondItem="APs-NE-8zU" secondAttribute="baseline" id="hQo-nN-gi5"/>
+                            <constraint firstItem="5uY-Qh-Ttk" firstAttribute="baseline" secondItem="Hfc-pY-2Wl" secondAttribute="baseline" id="nHd-4n-rOj"/>
+                            <constraint firstItem="Nwx-89-Xls" firstAttribute="leading" secondItem="uiL-6y-GmW" secondAttribute="trailing" constant="37" id="zsO-jI-FOp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="metalTextureView" destination="cMF-RM-Kbh" id="GNh-tm-4jC"/>
+                        <outlet property="s1" destination="cPd-XS-EMM" id="tTV-kv-YBe"/>
+                        <outlet property="s2" destination="APs-NE-8zU" id="5ji-KZ-OnI"/>
+                        <outlet property="s3" destination="5uY-Qh-Ttk" id="cr3-eF-TKi"/>
+                        <outlet property="s4" destination="Hfc-pY-2Wl" id="I2U-Gd-0DE"/>
+                        <outlet property="s5" destination="Toj-TY-aZw" id="IKS-rK-cPh"/>
+                    </connections>
+                </viewController>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2357.5" y="-348"/>
+        </scene>
+    </scenes>
+</document>

@@ -18,7 +18,7 @@ kernel void drawShader
     if(tx >= ctrl.txSize - ctrl.zoom) return;
     if(ty >= ctrl.tySize - ctrl.zoom) return;
     
-    int colorIndex = int(cells[i].value * 255);
+    int colorIndex = int(cells[i].value * 600) & 255;
     float4 color = float4(cTable[colorIndex],1);
     
     uint2 pixel;
@@ -50,30 +50,41 @@ kernel void evolveShader
 
     int i = x + y * w;
     
-    // compute u and v coordinates of pixel in range [0, 1]
-    const float u = (float)x / float(w - 1);
-    const float v = 1 - (float)y / float(h - 1);
-
-    // compute kill and feed rates
-    const float k = ctrl.killRate + (u - 0.5) * 0;
-    const float f = ctrl.feedRate + (v - 0.5) * 0;
-    
-    // find neighboring pixels, wrapping around edges
-    const int xp = x == 0 ? w - 1 : x - 1;
-    const int xn = x == w - 1 ? 0 : x + 1;
-    const int yp = y == 0 ? h - 1 : y - 1;
-    const int yn = y == h - 1 ? 0 : y + 1;
-    
     // get the values for A and B at this pixel
     const float a = A[i].value;
     const float b = B[i].value;
+
+    // compute u and v coordinates of pixel in range [0, 1]
+//    const float u = (float)x / float(w - 1);
+//    const float v = (float)y / float(h - 1);
+
+    // compute kill and feed rates
+//    const float k = ctrl.killRate + (u - 0.5) * 0;
+//    const float f = ctrl.feedRate + (v - 0.5) * 0;
+    const float k = ctrl.killRate + ctrl.killRate * a / 100;
+    const float f = ctrl.feedRate + ctrl.feedRate * a / 100;
 
     #define centerWeight -1.0
     #define adjacentWeight 0.2
     #define diagonalWeight 0.05
 
-    // compute A diffusion
+    // ------------------------------------------------------------
+    // find neighboring pixels, wrapping around edges
+    int xp,xn,yp,yn;
     float dda = 0;
+    float ddb = 0;
+
+    //    = x == 0 ? w - 1 : x - 1;
+//    int xn = x == w - 1 ? 0 : x + 1;
+//    int yp = y == 0 ? h - 1 : y - 1;
+//    int yn = y == h - 1 ? 0 : y + 1;
+
+    xp = (w + x - 1) % w;
+    xn = (w + x + 1) % w;
+    yp = (w + y - 1) % w;
+    yn = (w + y + 1) % w;
+    
+    // compute A diffusion
     dda += a * centerWeight;
     dda += A[yp * w + xp].value * diagonalWeight;
     dda += A[yp * w + xn].value * diagonalWeight;
@@ -83,9 +94,8 @@ kernel void evolveShader
     dda += A[yn * w + x].value * adjacentWeight;
     dda += A[y * w + xp].value * adjacentWeight;
     dda += A[y * w + xn].value * adjacentWeight;
-    
+
     // compute B diffusion
-    float ddb = 0;
     ddb += b * centerWeight;
     ddb += B[yp * w + xp].value * diagonalWeight;
     ddb += B[yp * w + xn].value * diagonalWeight;
@@ -96,9 +106,40 @@ kernel void evolveShader
     ddb += B[y * w + xp].value * adjacentWeight;
     ddb += B[y * w + xn].value * adjacentWeight;
     
+//    // ------------------------------------------------------------
+//    // find neighboring pixels, wrapping around edges
+//    xp = (w + x - 1) % (w-2);
+//    xn = (w + x + 1) % (w-3);
+//    yp = (w + y - 1) % (w-1);
+//    yn = (w + y + 1) % (w-2);
+//
+//    // compute A diffusion
+//    dda += a * centerWeight;
+//    dda += A[yp * w + xp].value * diagonalWeight;
+//    dda += A[yp * w + xn].value * diagonalWeight;
+//    dda += A[yn * w + xp].value * diagonalWeight;
+//    dda += A[yn * w + xn].value * diagonalWeight;
+//    dda += A[yp * w + x].value * adjacentWeight;
+//    dda += A[yn * w + x].value * adjacentWeight;
+//    dda += A[y * w + xp].value * adjacentWeight;
+//    dda += A[y * w + xn].value * adjacentWeight;
+//
+//    // compute B diffusion
+//    ddb += b * centerWeight;
+//    ddb += B[yp * w + xp].value * diagonalWeight;
+//    ddb += B[yp * w + xn].value * diagonalWeight;
+//    ddb += B[yn * w + xp].value * diagonalWeight;
+//    ddb += B[yn * w + xn].value * diagonalWeight;
+//    ddb += B[yp * w + x].value * adjacentWeight;
+//    ddb += B[yn * w + x].value * adjacentWeight;
+//    ddb += B[y * w + xp].value * adjacentWeight;
+//    ddb += B[y * w + xn].value * adjacentWeight;
+
     // apply reaction diffusion formula
-    const float da = ctrl.diffusionRateA * dda - a * b * b + f * (1 - a);
-    const float db = ctrl.diffusionRateB * ddb + a * b * b - (f + k) * b;
+    float diffa = ctrl.diffusionRateA; // + ctrl.diffusionRateA * fabs(u - 0.5) * 0.1;
+    float diffb = ctrl.diffusionRateB; // + ctrl.diffusionRateB * fabs(v - 0.5) * 0.1;
+    const float da = diffa * dda - a * b * b + f * (1 - a);
+    const float db = diffb * ddb + a * b * b - (f + k) * b;
     
     // write new A and B values
     newA[i].value = a + da * ctrl.scale;

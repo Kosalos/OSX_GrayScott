@@ -1,9 +1,10 @@
 // based on:   https://github.com/fogleman/GrayScott
+// also visit: https://www.karlsims.com/rd.html
 
 import Cocoa
 import MetalKit
 
-let XSIZE:Int = 300
+let XSIZE:Int = 100
 let YSIZE:Int = XSIZE
 let NUMCELLS:Int = XSIZE * YSIZE
 
@@ -56,8 +57,6 @@ class ViewController: NSViewController, NSWindowDelegate {
         case s5 : ctrl.scale = scaleMin + (scaleMax - scaleMin) * sender.floatValue
         default : break
         }
-        
-        reset()
     }
     
     func encode(_ slider:NSSlider, _ value:Float, _ vMin:Float, _ vMax:Float) {
@@ -69,6 +68,7 @@ class ViewController: NSViewController, NSWindowDelegate {
     func alter(_ slider:NSSlider, _ dir:Float) {
         slider.floatValue = min(max(slider.floatValue + dir * 0.005,0),1)
         sliderChanged(slider)
+        reset()
     }
     
     let PIPELINE_DRAW = 0
